@@ -8,9 +8,9 @@ export default function AppXY() {
     <div
       className="container"
       onPointerMove={(e) => {
-        setPosition({ x: e.clientX, y: e.clientY });
+        // setPosition({ x: e.clientX, y: e.clientY });/
         // 만약 x만 움직이고 싶으면??
-        // setPosition((prev) => ({ x: e.clientX, y: prev.y }));
+        setPosition((prev) => ({ x: e.clientX, y: prev.y }));
       }}
     >
       <div
