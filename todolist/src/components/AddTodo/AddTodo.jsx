@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
-export default function AddTodo({ onAdd, todos }) {
+export default function AddTodo({ onAdd }) {
   const [text, setText] = useState("");
 
   const handleChange = (e) => {
@@ -10,10 +11,10 @@ export default function AddTodo({ onAdd, todos }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (text.trim().length === 0) {
-      return;
+      return setText("");
     }
     onAdd({
-      id: String(+todos[todos.length - 1].id + 1),
+      id: uuidv4(),
       text,
       status: "active",
     });

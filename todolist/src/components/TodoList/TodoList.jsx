@@ -17,7 +17,7 @@ export default function TodoList() {
           <li key={item.id}>{item.text}</li>
         ))}
       </ul>
-      <AddTodo onAdd={handleAdd} todos={todos} />
+      <AddTodo onAdd={handleAdd} />
     </section>
   );
 }
