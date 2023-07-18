@@ -245,4 +245,99 @@ https://transform.tools/html-to-jsx
 - map을 통해 자식요소들을 사용할때는 고유한 키를 가지고 있어야 한다.
 - 보통 백에서 고유 id를 지정해줌으로써 그 id를 사용한다.
 
-정리
+# 5. 고급 내용들 (Deep Dive)
+
+## 5.1 마우스 따라가기 구현
+
+- 연관있는 변수를 useState 객체로 표현하여 한번에 묶어 사용하기
+- onPointerMove()메서드 사용해서 구현하기
+- style-transform 사용해서 구현
+
+## 5.2 중첩 객체 상태 관리(멘토 바꾸기) 구현
+
+- 스프레드 문법을 사용해 구조 분해 할당을 한 뒤 해당 useState를 사용해 변경하면 된다.
+
+## 5.3 배열 상태 관리
+
+- 배열이기 때문에 불변성을 유지해야 하기 때문에 map과 if문을 섞어 최신 값으로 변경하면 된다.
+
+## 5.4 상태관리 라이브러리
+
+- 상태가 업데이트 될 때 props를 통해 관리를 하다보면 prop drilling이 일어날 수 있기 때문에 필요한 컴포넌트만 업데이트를 하기 위해 상태 관리를 한다.
+- 라이브러리는 Redux, Mobx, Immer 등이 있고, 또 hook 또한 useState, useReduser, contextAPI 등이 있다.
+
+## 5.5 Context란?
+
+![스크린샷 2023-07-12 오후 10.48.41.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/20b77850-f8cd-4e8b-8398-739aa48ee2c0/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-07-12_%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE_10.48.41.png)
+
+- 모든 컴포넌트들이 필요하다면 어플리케이션 전반적으로 필요한 경우 ContextAPI를 사용할 수 있다
+- 언어, 테마(다크모드), 로그인, 빈번히 업데이트 되는 상태는 x
+- Context는 우산이다. 필요한 곳에 사용해야 한다.
+
+## 5.6 성능 개선
+
+- 최상위 부모 컴포넌트가 업데이트 될 때 마다 자식 컴포넌트가 호출되고 재할당이 일어나고 성능이 저하된다.
+- 이를 개선하기 위해서 useMemo, useCallback을 사용한다.
+- 예제 - AppMontorsButton
+
+## 5.7 커스텀 훅
+
+- 재사용 가능한 훅을 만들 때 사용하고 원하는 데이터를 반환하면 된다, 일반 컴포넌트와 다른점은 ui 유무
+- 예제 - hook
+
+# 6. CSS 라이브러리
+
+## CSS 라이브러리 프레임워크
+
+- 다운로드가 많고 만족도가 높은 프레임워크 : SASS
+- 다운로드가 많고 만족도가 낮은 프레임워크 : Bootstrap
+- 그 다음 다운로드가 많고 만족도가 높은 프레임워크 : PostCSS
+- 자바스크립트 안에서 사용하는 styled components도 비교적 만족도가 높다.
+
+## PostCSS
+
+- 동일한 클래스를 사용하면 나중에 사용되는 css파일이 앞에 정의된 파일을 덮어쓰게 되어있다.
+- 그 문제점을 PostCSS를 쓰면 해결할 수 있다.
+  ![스크린샷 2023-01-09 오전 6.26.31.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/10b546e5-7f22-4b92-ae0a-98be9bca44ab/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-01-09_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_6.26.31.png)
+  ![스크린샷 2023-01-09 오전 6.26.42.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/42e85659-3f1b-4fb8-90a3-b7b52f43cbba/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2023-01-09_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_6.26.42.png)
+- PostCSS 사용 방법은 간단하다 .css 이름 전에 module이라는 네임을 입력해주면 된다.
+- 그 다음 import를 해주고 className은 {}자바스크립트 문법으로 해당 클래스를 불러오면 된다.
+
+## Taliwind 사용법
+
+1. yarn add -D tailwindcss 추가
+
+2. npx tailwindcss init 추가
+
+3. tailwindconfig에 추가
+
+   module.exports = {
+   content: ["./src/**/*.{js, jsx, ts, tsx}"],
+   theme: {
+   extend: {},
+   },
+   plugins: [],
+   }
+
+4. css파일 상단에 추가
+
+   @tailwind base;
+   @tailwind components;
+   @tailwind utilities;
+
+5. className에 이미 저장된 값을 쓰면된다
+
+   ```jsx
+   import React from "react";
+
+   export default function TailwindComponent() {
+     return (
+       <div>
+         <h1 className="text-8xl">안녕!</h1>
+         <button className="bg-blue-500 rounded-xl px-2">Button</button>
+       </div>
+     );
+   }
+   ```
+
+## CSS 라이브러리 장단점
