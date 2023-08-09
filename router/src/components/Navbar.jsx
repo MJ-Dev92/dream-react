@@ -5,7 +5,7 @@ export default function Navbar() {
   return (
     <nav>
       <Link to="/">Home</Link>
-      <Link to="/video">VIDEOS</Link>
+      <Link to="/videos">Videos</Link>
     </nav>
   );
 }
