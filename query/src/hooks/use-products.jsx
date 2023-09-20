@@ -6,7 +6,6 @@ export default function useProducts({ salesOnly }) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    console.log("fatching...");
     setLoading(true);
     setError(undefined);
     fetch(`data/${salesOnly ? "sale_" : ""}products.json`)
